@@ -1,17 +1,19 @@
-const fs = require('fs');
-const path = require('path');
 const tf = require('@tensorflow/tfjs-node');
+require('dotenv').config();
+const axios = require('axios');
 
-function loadModel() {
-    const modelPath = path.join(__dirname, '../simple_model.json'); // Sesuaikan dengan lokasi penyimpanan model Anda
-    const modelConfig = JSON.parse(fs.readFileSync(modelPath, 'utf-8'));
+let model;
 
-    const model = tf.sequential();
-    for (const layerConfig of modelConfig.config.layers) {
-        model.add(tf.layers[layerConfig.class_name].fromConfig(layerConfig.config));
+const loadModel = async () => {
+    if (!model) {
+        const modelJsonUrl = process.env.MODEL_JSON_URL;
+        const modelWeightsUrl = process.env.MODEL_WEIGHTS_URL;
+
+        model = await tf.loadLayersModel(modelJsonUrl, {
+            weightPathPrefix: modelWeightsUrl
+        });
     }
-
     return model;
-}
+};
 
 module.exports = { loadModel };

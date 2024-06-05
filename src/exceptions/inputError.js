@@ -1,4 +1,4 @@
-class InputError extends ClientError {
+class InputError extends Error {
     constructor(message) {
         super(message);
         this.name = 'InputError';

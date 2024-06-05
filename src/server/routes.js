@@ -1,9 +1,9 @@
-const handler = require('./handler');
+const { predictHandler } = require('./handler');
 
 module.exports = [
     {
-        method: 'POST',
+        method: 'GET',
         path: '/predict',
-        handler: handler.predict
+        handler: predictHandler,
     }
 ];

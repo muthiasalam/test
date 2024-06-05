@@ -7,7 +7,7 @@ const routes = require('./routes');
         host: 'localhost',
         routes: {
             cors: {
-              origin: ['*'],
+                origin: ['*'],
             },
         },
     });
@@ -15,5 +15,5 @@ const routes = require('./routes');
     server.route(routes);
 
     await server.start();
-    console.log(`Server start at: ${server.info.uri}`);
+    console.log(`Server started at: ${server.info.uri}`);
 })();
